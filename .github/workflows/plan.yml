@@ -1,0 +1,19 @@
+name: plan
+on:
+  push:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * 0"
+env:
+  REPO: ${GITHUB_REPOSITORY}
+jobs:
+  schedule:
+    runs-on: ubuntu-latest
+    steps:
+      - name: init
+        run: |
+          echo ${GITHUB_REPOSITORY} | sed -e 's|.*/||'
+          echo "${{ github.event.repository.name }}"
+          echo $GITHUB_REPOSITORY
+          echo $REPO
+          echo "${{ toJson(github) }}"
